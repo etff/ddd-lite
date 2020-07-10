@@ -1,14 +1,28 @@
-package com.app.dddlite;
+package com.app.dddlite.common.model;
 
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Embeddable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Function;
 
+
+@Embeddable
+@EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Money {
+
 	public static final Money ZERO = Money.wons(0);
 
-	private final BigDecimal amount;
+	private BigDecimal amount;
+
+	private Money(BigDecimal amount) {
+		this.amount = amount;
+	}
 
 	public static Money wons(long amount) {
 		return new Money(BigDecimal.valueOf(amount));
@@ -20,10 +34,6 @@ public class Money {
 
 	public static <T> Money sum(Collection<T> bags, Function<T, Money> monetary) {
 		return bags.stream().map(bag -> monetary.apply(bag)).reduce(Money.ZERO, Money::plus);
-	}
-
-	Money(BigDecimal amount) {
-		this.amount = amount;
 	}
 
 	public Money plus(Money amount) {
@@ -62,22 +72,6 @@ public class Money {
 		return amount.doubleValue();
 	}
 
-	public boolean equals(Object object) {
-		if (this == object) {
-			return true;
-		}
-
-		if (!(object instanceof Money)) {
-			return false;
-		}
-
-		Money other = (Money)object;
-		return Objects.equals(amount.doubleValue(), other.amount.doubleValue());
-	}
-
-	public int hashCode() {
-		return Objects.hashCode(amount);
-	}
 
 	public String toString() {
 		return amount.toString() + "원";

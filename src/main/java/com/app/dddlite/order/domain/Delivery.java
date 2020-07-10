@@ -1,4 +1,6 @@
-package com.app.dddlite.order;
+package com.app.dddlite.order.domain;
+
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -12,8 +14,8 @@ public class Delivery {
     private Long id;
 
     @OneToOne(mappedBy = "delivery", fetch = LAZY)
+    @Setter
     private Order order;
-
 
     @Embedded
     private Address address;

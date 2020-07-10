@@ -1,8 +1,11 @@
-package com.app.dddlite.member;
+package com.app.dddlite.member.domain;
+
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
+@EqualsAndHashCode
 public class Address {
     private String city;
     private String street;

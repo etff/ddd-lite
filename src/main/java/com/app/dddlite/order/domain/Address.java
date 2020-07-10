@@ -1,4 +1,4 @@
-package com.app.dddlite.order;
+package com.app.dddlite.order.domain;
 
 import javax.persistence.Embeddable;
 
