@@ -28,4 +28,8 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Setter
     private OrderStatus status;
+
+    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL )
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
 }
